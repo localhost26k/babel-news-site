@@ -503,6 +503,20 @@ button.danger:hover {
   color: #fff;
 }
 
+.developer-credit {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.95rem;
+}
+
+.developer-credit a {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.developer-credit a:hover {
+  color: #fff;
+}
+
 @media (max-width: 840px) {
   .header-inner {
     align-items: flex-start;
