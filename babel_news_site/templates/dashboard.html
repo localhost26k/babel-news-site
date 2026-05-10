@@ -1,0 +1,31 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="dash-head">
+  <h2>لوحة النشر</h2>
+  <a class="btn" href="{{ url_for('site.new_post') }}">+ منشور جديد</a>
+  <a class="btn outline" href="{{ url_for('site.logout') }}">خروج</a>
+</div>
+<table class="table">
+  <thead>
+    <tr><th>العنوان</th><th>القسم</th><th>الفرع</th><th>مميّز</th><th>التاريخ</th><th></th></tr>
+  </thead>
+  <tbody>
+    {% for p in posts %}
+    <tr>
+      <td><a href="{{ url_for('site.post', pid=p['id']) }}" target="_blank">{{ p['title'] }}</a></td>
+      <td>{{ p['section'] }}</td>
+      <td>{{ p['sublabel'] }}</td>
+      <td>{% if p['featured'] %}✓{% else %}—{% endif %}</td>
+      <td>{{ p['created_at'][:16].replace('T',' ') }}</td>
+      <td>
+        <form method="post" action="{{ url_for('site.delete_post', pid=p['id']) }}" onsubmit="return confirm('حذف نهائي؟');">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+          <button class="danger">حذف</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-card">
+  <h2>تسجيل الدخول للكتّاب</h2>
+  <form method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    <label>اسم المستخدم</label>
+    <input type="text" name="username" placeholder="EOB" autocomplete="username" required>
+    <label>كلمة المرور</label>
+    <input type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+    <button type="submit">دخول</button>
+  </form>
+</div>
+{% endblock %}

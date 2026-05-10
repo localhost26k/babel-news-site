@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2>منشور جديد</h2>
+<form class="editor" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+  <label>العنوان *</label>
+  <input type="text" name="title" required>
+
+  <div class="row">
+    <div>
+      <label>القسم *</label>
+      <select name="section" id="section" required onchange="syncSubs()">
+        <option value="">— اختر —</option>
+        {% for sec, subs in writer_sections.items() %}
+        <option value="{{ sec }}">{{ sec }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label>التصنيف الفرعي *</label>
+      <select name="sublabel" id="sublabel" required></select>
+    </div>
+    <div class="chk">
+      <label><input type="checkbox" name="featured"> مميّز</label>
+    </div>
+  </div>
+
+  <label>الصورة/الفيديو الرئيسي</label>
+  <input type="file" name="image" accept="image/*,video/*">
+  <label>رابط وسائط خارجي (YouTube أو صورة/فيديو مباشر)</label>
+  <input type="url" name="media_url" placeholder="https://youtu.be/... or https://example.com/video.mp4">
+
+  <label>النص</label>
+  <textarea name="body" rows="12" placeholder="اكتب المحتوى هنا..." required></textarea>
+
+  <button type="submit">نشر</button>
+</form>
+
+<script>
+  const SECTIONS = {{ writer_sections|tojson }};
+  function syncSubs(){
+    const s = document.getElementById('section').value;
+    const sub = document.getElementById('sublabel');
+    sub.innerHTML = '';
+    if(SECTIONS[s]){
+      SECTIONS[s].forEach(v => {
+        const opt = document.createElement('option'); opt.value=v; opt.textContent=v; sub.appendChild(opt);
+      });
+    }
+  }
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if about_text %}
+  <section class="about">
+    <div class="card">
+      <div class="card-body">
+        <h2>من نحن</h2>
+        <p>{{ about_text }}</p>
+      </div>
+    </div>
+  </section>
+  {% else %}
+
+  {% if featured and not active_section %}
+  <section class="featured">
+    <h2>العناوين البارزة</h2>
+    <div class="grid">
+      {% for p in featured %}
+        {% set show_excerpt = false %}
+        {% include "_post_card.html" %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="posts">
+    <h2>
+      {% if active_section %} {{ active_section }} {% else %} أحدث الأخبار {% endif %}
+      {% if active_sub %} — {{ active_sub }} {% endif %}
+    </h2>
+    <div class="grid">
+      {% for p in posts %}
+        {% set show_excerpt = true %}
+        {% include "_post_card.html" %}
+      {% else %}
+      <p>لا توجد منشورات بعد.</p>
+      {% endfor %}
+    </div>
+  </section>
+
+  {% endif %}
+
+{% endblock %}

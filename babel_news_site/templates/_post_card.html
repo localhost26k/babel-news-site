@@ -1,0 +1,22 @@
+<article class="card">
+  {% if p.image_path %}
+    {% set kind = media_kind(p.image_path) %}
+    {% set src = media_src(p.image_path) %}
+    {% if kind == 'youtube' %}
+      <iframe loading="lazy" src="{{ src }}" title="{{ p.title }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    {% elif kind == 'video' %}
+      <video controls preload="metadata" src="{{ src }}"></video>
+    {% elif kind == 'image' %}
+      <img src="{{ src }}" alt="">
+    {% endif %}
+  {% endif %}
+  <div class="card-body">
+    <a class="tag" href="{{ url_for('site.index') }}?section={{ p.section }}&sub={{ p.sublabel }}">{{ p.section }} • {{ p.sublabel }}</a>
+    <h3><a href="{{ url_for('site.post', pid=p.id) }}">{{ p.title }}</a></h3>
+    {% if show_excerpt %}
+      {% set excerpt = p.body|striptags %}
+      <p class="excerpt">{{ excerpt[:140] }}{% if excerpt|length > 140 %}...{% endif %}</p>
+    {% endif %}
+    <p class="meta">{{ p.created_at[:16].replace('T',' ') }}</p>
+  </div>
+</article>

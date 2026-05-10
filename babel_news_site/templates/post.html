@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block content %}
+<article class="single">
+  <header>
+    <a class="tag" href="{{ url_for('site.index') }}?section={{ p.section }}&sub={{ p.sublabel }}">{{ p.section }} • {{ p.sublabel }}</a>
+    <h1>{{ p.title }}</h1>
+    <p class="meta">نُشر في {{ p.created_at[:16].replace('T',' ') }} بواسطة {{ p.author or "هيئة التحرير" }}</p>
+  </header>
+  {% if p.image_path %}
+    {% set kind = media_kind(p.image_path) %}
+    {% set src = media_src(p.image_path) %}
+    {% if kind == 'youtube' %}
+      <iframe class="hero" loading="lazy" src="{{ src }}" title="{{ p.title }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    {% elif kind == 'video' %}
+      <video class="hero" controls preload="metadata" src="{{ src }}"></video>
+    {% elif kind == 'image' %}
+      <img class="hero" src="{{ src }}" alt="">
+    {% endif %}
+  {% endif %}
+  <div class="content">
+    {{ p.body | replace('\n','<br>') | safe }}
+  </div>
+</article>
+{% endblock %}

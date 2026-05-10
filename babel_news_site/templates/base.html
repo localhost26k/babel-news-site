@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>وكالة عيون بابل</title>
+  <meta name="theme-color" content="#173f91">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+      <div class="brand" aria-label="وكالة عيون بابل الإخبارية">
+          <span class="brand-name">وكالة عيون بابل</span>
+      </div>
+      <nav class="main-nav">
+          {% for key, subs in sections.items() %}
+          <div class="nav-item">
+              <a {% if key == 'فقط في العراق' %}class="iraq-btn"{% endif %}
+                 href="{{ url_for('site.index') }}?section={{ key }}">{{ key }}</a>
+              <div class="mega">
+                {% for sub in subs %}
+                <a href="{{ url_for('site.index') }}?section={{ key }}&sub={{ sub }}">{{ sub }}</a>
+                {% endfor %}
+              </div>
+          </div>
+          {% endfor %}
+      </nav>
+      <div class="writer-link">
+        <a href="{{ url_for('site.login') }}">للكادر التحريري</a>
+      </div>
+  </div>
+</header>
+
+<main class="container">
+  {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+      <div class="flash-area">
+        {% for cat,msg in messages %}
+        <div class="flash {{ cat }}">{{ msg }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© {{ current_year }} العراق - بابل - الحلة - حي الاسكان</p>
+      <p dir="ltr">07880445444</p>
+      <p class="social-links">
+        <span>حسابات الوكالة:</span>
+        <a href="https://www.instagram.com/ayoon25.babel" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://www.facebook.com/share/p/1CXg28CXXS/" target="_blank" rel="noopener noreferrer">Facebook</a>
+        <a href="https://x.com/BabylonEye53284" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://t.me/+9647880445444" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="https://linktr.ee/ywnbabl95" target="_blank" rel="noopener noreferrer">Linktree</a>
+      </p>
+  </div>
+</footer>
+</body>
+</html>
