@@ -1,0 +1,13 @@
+[project]
+name = "babel-news-site"
+version = "0.1.0"
+description = "A small Arabic Flask news site for وكالة عيون بابل."
+requires-python = ">=3.10"
+dependencies = [
+    "Flask>=3.0,<4",
+    "bleach>=6.1,<7",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

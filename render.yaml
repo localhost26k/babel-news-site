@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: babel-news-site
+    runtime: python
+    plan: free
+    region: frankfurt
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT wsgi:app
+    healthCheckPath: /healthz
+    autoDeployTrigger: commit
+    envVars:
+      - key: FLASK_SECRET_KEY
+        generateValue: true
+      - key: DEFAULT_WRITER_USER
+        value: EOB
+      - key: DEFAULT_WRITER_PASSWORD
+        sync: false
+      - key: SESSION_COOKIE_SECURE
+        value: "1"
+      - key: MAX_CONTENT_LENGTH
+        value: "26214400"

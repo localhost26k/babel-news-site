@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.test_tmp/
+.venv/
+.env
+instance/*
+!instance/.gitkeep
+babel_news_site/static/uploads/*
+!babel_news_site/static/uploads/.gitkeep
