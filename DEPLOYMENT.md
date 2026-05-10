@@ -13,6 +13,8 @@ Important: this free setup does not include persistent disk storage. SQLite data
 
 If you later want the safer paid setup with persistent SQLite/uploads, copy `render.paid.yaml` over `render.yaml` before deploying or upgrade the service and attach a persistent disk.
 
+The first free deploy uses a text brand in the header. Upload the logo asset later if you want the image header restored.
+
 ## 1. Upload To GitHub
 
 Create a GitHub repository and upload the contents of this folder:
