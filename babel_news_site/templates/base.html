@@ -12,7 +12,8 @@
 <header class="site-header">
   <div class="container header-inner">
       <div class="brand" aria-label="وكالة عيون بابل الإخبارية">
-          <span>وكالة عيون بابل</span>
+          <img src="{{ url_for('static', filename='img/logo.jpeg') }}" alt="وكالة عيون بابل الإخبارية - Babylon Eyes News Agency">
+          <span class="brand-name">وكالة عيون بابل</span>
       </div>
       <nav class="main-nav">
           {% for key, subs in sections.items() %}
